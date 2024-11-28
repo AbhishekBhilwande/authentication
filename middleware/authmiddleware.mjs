@@ -11,7 +11,7 @@ export default function authentication  (req, res, next) {
     try {
         const valid = jwt.verify(token, "secretKey");
         if (valid) {
-            req.user = valid; 
+            req.user_id = valid; 
             next(); 
         }
     } catch (err) {
