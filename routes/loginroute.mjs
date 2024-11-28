@@ -1,6 +1,6 @@
 // loginroute.mjs
 import { Router } from 'express';
-import { submit, login ,logout} from '../controller/logincontroller.mjs';
+import { submit, login ,logout,getdetails} from '../controller/logincontroller.mjs';
 import authmiddleware from '../middleware/authmiddleware.mjs';
 
 const router = Router(); 
@@ -17,6 +17,6 @@ router.use(authmiddleware);
 router.get('/home',(req,res)=>{
     res.send("this is home page");
 })
-
+router.get('/user',getdetails);
 export default router;
 
