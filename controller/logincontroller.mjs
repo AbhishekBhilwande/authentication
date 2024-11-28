@@ -35,7 +35,8 @@ export const login = async (req, res) => {
         if (user) {
             console.log("User found");
             if (password === user.password) {
-                const token = jwt.sign({id},"secretKey");
+                const user_id = user._id;
+                const token = jwt.sign({user_id},"secretKey");
                 res.cookie("token", token, {
                     httpOnly: true, 
                     secure: process.env.NODE_ENV === 'production',  
@@ -64,4 +65,20 @@ export const logout = (req, res) => {
         sameSite: 'Strict'  
     });
     return res.status(200).send("Logged out successfully");
+};
+
+export const getdetails = async(req,res)=>{
+    const userid = req.user_id.user_id;
+    console.log(userid);
+    console.log(typeof userid);
+    try{
+        const user = await Login.findOne({_id:userid});
+        if(user){
+            res.json(user);
+        }else{
+            res.send("user not found");
+        }
+    }catch{
+        res.send("error");
+    }
 };
